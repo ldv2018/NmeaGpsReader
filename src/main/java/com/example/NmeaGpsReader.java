@@ -10,7 +10,7 @@ public class NmeaGpsReader {
 
     // Параметры порта по умолчанию
     private static final int DEFAULT_BAUDRATE = 9600;
-    private static final String DEFAULT_PORT = "/dev/ttyACM0"; //"COM_" для Windows
+    private static final String DEFAULT_PORT = "/COM7"; //"COM_" для Windows
 
     public static void main(String[] args) {
         String portName = DEFAULT_PORT;
@@ -115,7 +115,7 @@ public class NmeaGpsReader {
      */
     private static void parseAndPrintNmea(String nmea) {
         // Вывод сырой строки
-        System.out.println("RAW: " + nmea);
+        //System.out.println("RAW: " + nmea);
 
         // Проверка начала с '$'
         if (!nmea.startsWith("$")) {
@@ -135,27 +135,28 @@ public class NmeaGpsReader {
         // Обработка разных типов предложений
         switch (type) {
             case "$GPGGA":
+                break;
             case "$GNGGA":
                 parseGGA(tokens);
                 break;
             case "$GPRMC":
             case "$GNRMC":
-                parseRMC(tokens);
+                //parseRMC(tokens);
                 break;
             case "$GPGSV":
             case "$GNGSV":
-                parseGSV(tokens);
+                //parseGSV(tokens);
                 break;
             case "$GPGSA":
             case "$GNGSA":
-                parseGSA(tokens);
+                //parseGSA(tokens);
                 break;
             default:
                 // Для других типов просто выводим тип
-                System.out.println("  Тип: " + type);
+                //System.out.println("  Тип: " + type);
                 break;
         }
-        System.out.println("----------------------------------------");
+        //System.out.println("----------------------------------------");
     }
 
     /**
@@ -220,6 +221,7 @@ public class NmeaGpsReader {
                 default -> "Неизвестно";
             };
             System.out.println("  Качество: " + qualityDesc);
+            System.out.println("-------------------------------");
         }
 
         // Количество спутников
